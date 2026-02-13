@@ -1,0 +1,47 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Bugs";
+}
+
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Bug List</h3>
+    <a class="btn btn-primary" asp-controller="Bug" asp-action="Create">New Bug</a>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead class="table-light">
+        <tr>
+          <th>Bug ID</th>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (Model != null)
+        {
+            foreach (var bug in Model)
+            {
+                <tr>
+                    <td>@(bug.Id ?? "-")</td>
+                    <td>@(bug.Title ?? "-")</td>
+                    <td>@(bug.Status ?? "-")</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-secondary me-2" asp-controller="Bug" asp-action="Edit" asp-route-id="@bug.Id">Edit</a>
+                        <a class="btn btn-sm btn-outline-info" asp-controller="Bug" asp-action="ChangeStatus" asp-route-id="@bug.Id">Update Status</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-muted">No bugs available.</td>
+            </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
