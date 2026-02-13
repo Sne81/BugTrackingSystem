@@ -1,0 +1,35 @@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h3 class="card-title mb-4">Create Bug</h3>
+          <form method="post" asp-controller="Bug" asp-action="Create">
+            <div class="mb-3">
+              <label for="Title" class="form-label">Bug Title</label>
+              <input type="text" class="form-control" id="Title" name="Title" required />
+            </div>
+            <div class="mb-3">
+              <label for="Description" class="form-label">Description</label>
+              <textarea class="form-control" id="Description" name="Description" rows="4" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="Severity" class="form-label">Severity</label>
+              <select class="form-select" id="Severity" name="Severity" required>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+                <option value="Critical">Critical</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
