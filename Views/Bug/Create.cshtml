@@ -1,32 +1,37 @@
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Create Bug";
 }
 
-<div class="container mt-5">
+<div class="container py-4">
   <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-lg-8">
       <div class="card shadow-sm">
         <div class="card-body">
-          <h3 class="card-title mb-4">Create Bug</h3>
-          <form method="post" asp-controller="Bug" asp-action="Create">
+          <h3 class="card-title mb-3">Create New Bug</h3>
+          <form method="post" asp-controller="Bug" asp-action="Create" novalidate>
             <div class="mb-3">
               <label for="Title" class="form-label">Bug Title</label>
-              <input type="text" class="form-control" id="Title" name="Title" required />
+              <input type="text" class="form-control form-control-lg" id="Title" name="Title" placeholder="Short, descriptive title" required />
             </div>
             <div class="mb-3">
               <label for="Description" class="form-label">Description</label>
-              <textarea class="form-control" id="Description" name="Description" rows="4" required></textarea>
+              <textarea class="form-control" id="Description" name="Description" rows="5" placeholder="Steps to reproduce, expected vs actual behaviour" required></textarea>
             </div>
-            <div class="mb-3">
-              <label for="Severity" class="form-label">Severity</label>
-              <select class="form-select" id="Severity" name="Severity" required>
-                <option value="Low">Low</option>
-                <option value="Medium">Medium</option>
-                <option value="High">High</option>
-                <option value="Critical">Critical</option>
-              </select>
+            <div class="row g-2 mb-3">
+              <div class="col-md-6">
+                <label for="Severity" class="form-label">Severity</label>
+                <select class="form-select" id="Severity" name="Severity" required>
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                  <option value="Critical">Critical</option>
+                </select>
+              </div>
+              <div class="col-md-6 d-flex align-items-end">
+                <button type="submit" class="btn btn-success w-100">Submit Bug</button>
+              </div>
             </div>
-            <button type="submit" class="btn btn-success">Submit</button>
           </form>
         </div>
       </div>
