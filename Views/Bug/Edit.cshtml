@@ -1,36 +1,26 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+@{
     ViewData["Title"] = "Update Status";
 }
 
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <h4 class="card-title mb-3">Update Bug Status</h4>
-          <form method="post" asp-controller="Bug" asp-action="Edit">
-            <input type="hidden" name="Id" value="@ViewData["Id"]" />
-            <div class="mb-3">
-              <label for="Status" class="form-label">Status</label>
-              <select class="form-select" id="Status" name="Status" required>
-                <option value="Open">Open</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Resolved">Resolved</option>
-                <option value="Closed">Closed</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="Comment" class="form-label">Comment</label>
-              <textarea class="form-control" id="Comment" name="Comment" rows="3" placeholder="Optional note about this update"></textarea>
-            </div>
-            <div class="d-flex gap-2">
-              <button type="submit" class="btn btn-primary">Update</button>
-              <a class="btn btn-outline-secondary" asp-controller="Bug" asp-action="Index">Cancel</a>
-            </div>
-          </form>
+<div class="container mt-4">
+    <h2 class="mb-4">Update Bug Status</h2>
+
+    <form>
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select class="form-select">
+                <option>Open</option>
+                <option>In Progress</option>
+                <option>Fixed</option>
+                <option>Closed</option>
+            </select>
         </div>
-      </div>
-    </div>
-  </div>
+
+        <div class="mb-3">
+            <label class="form-label">Comment</label>
+            <textarea class="form-control" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-warning">Update</button>
+    </form>
 </div>

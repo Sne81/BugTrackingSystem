@@ -1,40 +1,31 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+@{
     ViewData["Title"] = "Create Bug";
 }
 
-<div class="container py-4">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <h3 class="card-title mb-3">Create New Bug</h3>
-          <form method="post" asp-controller="Bug" asp-action="Create" novalidate>
-            <div class="mb-3">
-              <label for="Title" class="form-label">Bug Title</label>
-              <input type="text" class="form-control form-control-lg" id="Title" name="Title" placeholder="Short, descriptive title" required />
-            </div>
-            <div class="mb-3">
-              <label for="Description" class="form-label">Description</label>
-              <textarea class="form-control" id="Description" name="Description" rows="5" placeholder="Steps to reproduce, expected vs actual behaviour" required></textarea>
-            </div>
-            <div class="row g-2 mb-3">
-              <div class="col-md-6">
-                <label for="Severity" class="form-label">Severity</label>
-                <select class="form-select" id="Severity" name="Severity" required>
-                  <option value="Low">Low</option>
-                  <option value="Medium">Medium</option>
-                  <option value="High">High</option>
-                  <option value="Critical">Critical</option>
-                </select>
-              </div>
-              <div class="col-md-6 d-flex align-items-end">
-                <button type="submit" class="btn btn-success w-100">Submit Bug</button>
-              </div>
-            </div>
-          </form>
+<div class="container mt-4">
+    <h2 class="mb-4">Create Bug</h2>
+
+    <form>
+        <div class="mb-3">
+            <label class="form-label">Bug Title</label>
+            <input type="text" class="form-control" placeholder="Enter bug title" />
         </div>
-      </div>
-    </div>
-  </div>
+
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" rows="3" placeholder="Enter bug description"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Severity</label>
+            <select class="form-select">
+                <option>Low</option>
+                <option>Medium</option>
+                <option>High</option>
+                <option>Critical</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
 </div>
