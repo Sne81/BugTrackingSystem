@@ -1,3 +1,5 @@
+@model BugTrackingSystem.Models.Bug
+
 @{
     ViewData["Title"] = "Update Status";
 }
@@ -5,22 +7,38 @@
 <div class="container mt-4">
     <h2 class="mb-4">Update Bug Status</h2>
 
-    <form>
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="BugId" />
+        <input type="hidden" asp-for="Title" />
+        <input type="hidden" asp-for="Description" />
+        <input type="hidden" asp-for="Severity" />
+        <input type="hidden" asp-for="CreatedDate" />
+        
         <div class="mb-3">
-            <label class="form-label">Status</label>
-            <select class="form-select">
-                <option>Open</option>
-                <option>In Progress</option>
-                <option>Fixed</option>
-                <option>Closed</option>
+            <label class="form-label">Bug Title</label>
+            <input type="text" class="form-control" value="@Model?.Title" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Status" class="form-label">Status</label>
+            <select asp-for="Status" class="form-select">
+                <option value="Open">Open</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Fixed">Fixed</option>
+                <option value="Closed">Closed</option>
             </select>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Comment</label>
-            <textarea class="form-control" rows="3"></textarea>
+            <label asp-for="Comment" class="form-label">Comment</label>
+            <textarea asp-for="Comment" class="form-control" rows="3"></textarea>
         </div>
 
         <button type="submit" class="btn btn-warning">Update</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

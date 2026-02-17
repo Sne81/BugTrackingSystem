@@ -1,3 +1,5 @@
+@model BugTrackingSystem.Models.Bug
+
 @{
     ViewData["Title"] = "Create Bug";
 }
@@ -5,27 +7,36 @@
 <div class="container mt-4">
     <h2 class="mb-4">Create Bug</h2>
 
-    <form>
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        
         <div class="mb-3">
-            <label class="form-label">Bug Title</label>
-            <input type="text" class="form-control" placeholder="Enter bug title" />
+            <label asp-for="Title" class="form-label">Bug Title</label>
+            <input asp-for="Title" class="form-control" placeholder="Enter bug title" />
+            <span asp-validation-for="Title" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Description</label>
-            <textarea class="form-control" rows="3" placeholder="Enter bug description"></textarea>
+            <label asp-for="Description" class="form-label">Description</label>
+            <textarea asp-for="Description" class="form-control" rows="3" placeholder="Enter bug description"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Severity</label>
-            <select class="form-select">
-                <option>Low</option>
-                <option>Medium</option>
-                <option>High</option>
-                <option>Critical</option>
+            <label asp-for="Severity" class="form-label">Severity</label>
+            <select asp-for="Severity" class="form-select">
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+                <option value="Critical">Critical</option>
             </select>
         </div>
 
         <button type="submit" class="btn btn-success">Submit</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
