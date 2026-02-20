@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\BugTrackingSystem\\BugTrackingSystem.csproj": {}
+    "D:\\BUGTRACKING\\BugTrackingSystem\\BugTrackingSystem.csproj": {}
   },
   "projects": {
-    "D:\\BugTrackingSystem\\BugTrackingSystem.csproj": {
+    "D:\\BUGTRACKING\\BugTrackingSystem\\BugTrackingSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\BugTrackingSystem\\BugTrackingSystem.csproj",
+        "projectUniqueName": "D:\\BUGTRACKING\\BugTrackingSystem\\BugTrackingSystem.csproj",
         "projectName": "BugTrackingSystem",
-        "projectPath": "D:\\BugTrackingSystem\\BugTrackingSystem.csproj",
+        "projectPath": "D:\\BUGTRACKING\\BugTrackingSystem\\BugTrackingSystem.csproj",
         "packagesPath": "C:\\Users\\yogin\\.nuget\\packages\\",
-        "outputPath": "D:\\BugTrackingSystem\\obj\\",
+        "outputPath": "D:\\BUGTRACKING\\BugTrackingSystem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\yogin\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -43,6 +43,26 @@
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
+          "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

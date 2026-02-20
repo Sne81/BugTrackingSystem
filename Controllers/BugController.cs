@@ -1,12 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using BugTrackingSystem.Data;
 using BugTrackingSystem.Models;
-using BugTrackingSystem.Filters;
-using Microsoft.EntityFrameworkCore;
 
 namespace BugTrackingSystem.Controllers
 {
-    [SessionAuthFilter]
     public class BugController : Controller
     {
         private readonly AppDbContext _context;
@@ -16,85 +14,71 @@ namespace BugTrackingSystem.Controllers
             _context = context;
         }
 
-        // GET: Bug/Index
+        // ---------------- LIST ----------------
         public async Task<IActionResult> Index()
         {
-            var bugs = await _context.Bugs.OrderByDescending(b => b.CreatedDate).ToListAsync();
-            return View(bugs);
+            if (HttpContext.Session.GetString("Username") == null)
+                return RedirectToAction("Login", "Account");
+
+            return View(await _context.Bugs.ToListAsync());
         }
 
-        // GET: Bug/Create
+        // ---------------- CREATE ----------------
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetString("Role") != "Admin")
+                return RedirectToAction("Index");
+
             return View();
         }
 
-        // POST: Bug/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Bug bug)
         {
+            if (HttpContext.Session.GetString("Role") != "Admin")
+                return RedirectToAction("Index");
+
             if (ModelState.IsValid)
             {
                 bug.CreatedDate = DateTime.Now;
-                bug.Status = "Open";
-                _context.Bugs.Add(bug);
+                _context.Add(bug);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(bug);
         }
 
-        // GET: Bug/Edit/5
+        // ---------------- EDIT ----------------
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (HttpContext.Session.GetString("Role") != "Admin")
+                return RedirectToAction("Index");
+
+            if (id == null) return NotFound();
 
             var bug = await _context.Bugs.FindAsync(id);
-            if (bug == null)
-            {
-                return NotFound();
-            }
+            if (bug == null) return NotFound();
+
             return View(bug);
         }
 
-        // POST: Bug/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Bug bug)
         {
-            if (id != bug.BugId)
-            {
-                return NotFound();
-            }
+            if (HttpContext.Session.GetString("Role") != "Admin")
+                return RedirectToAction("Index");
+
+            if (id != bug.BugId) return NotFound();
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    bug.UpdatedDate = DateTime.Now;
-                    _context.Update(bug);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!BugExists(bug.BugId))
-                    {
-                        return NotFound();
-                    }
-                    throw;
-                }
+                _context.Update(bug);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(bug);
-        }
-
-        private bool BugExists(int id)
-        {
-            return _context.Bugs.Any(e => e.BugId == id);
         }
     }
 }

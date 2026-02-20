@@ -2,12 +2,17 @@
 
 @{
     ViewData["Title"] = "Bug List";
+    var role = Context.Session.GetString("Role");
 }
 
 <div class="container mt-4">
     <h2 class="mb-4">Bug List</h2>
-    
-    <a asp-action="Create" class="btn btn-primary mb-3">Create New Bug</a>
+
+    @* Only Admin can create *@
+    @if (role == "Admin")
+    {
+        <a asp-action="Create" class="btn btn-primary mb-3">Create New Bug</a>
+    }
 
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
@@ -28,19 +33,34 @@
                     <tr>
                         <td>@bug.BugId</td>
                         <td>@bug.Title</td>
+
                         <td>
-                            <span class="badge bg-@(bug.Severity == "Critical" ? "danger" : bug.Severity == "High" ? "warning" : bug.Severity == "Medium" ? "info" : "secondary")">
+                            <span class="badge bg-@(bug.Severity == "Critical" ? "danger" :
+                                                    bug.Severity == "High" ? "warning" :
+                                                    bug.Severity == "Medium" ? "info" : "secondary")">
                                 @bug.Severity
                             </span>
                         </td>
+
                         <td>
-                            <span class="badge bg-@(bug.Status == "Open" ? "primary" : bug.Status == "In Progress" ? "warning" : bug.Status == "Fixed" ? "success" : "secondary")">
+                            <span class="badge bg-@(bug.Status == "Open" ? "primary" :
+                                                    bug.Status == "In Progress" ? "warning" :
+                                                    bug.Status == "Fixed" ? "success" : "secondary")">
                                 @bug.Status
                             </span>
                         </td>
+
                         <td>@bug.CreatedDate.ToString("MM/dd/yyyy")</td>
+
                         <td>
-                            <a asp-action="Edit" asp-route-id="@bug.BugId" class="btn btn-warning btn-sm">Edit</a>
+                            @if (role == "Admin")
+                            {
+                                <a asp-action="Edit" asp-route-id="@bug.BugId" class="btn btn-warning btn-sm">Edit</a>
+                            }
+                            else
+                            {
+                                <span class="text-muted">View Only</span>
+                            }
                         </td>
                     </tr>
                 }

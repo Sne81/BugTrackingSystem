@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace BugTrackingSystem.Models
@@ -7,20 +8,16 @@ namespace BugTrackingSystem.Models
         [Key]
         public int BugId { get; set; }
 
-        [Required(ErrorMessage = "Bug title is required")]
-        [StringLength(200)]
-        public string Title { get; set; } = string.Empty;
-
-        [Required(ErrorMessage = "Description is required")]
-        public string Description { get; set; } = string.Empty;
-
         [Required]
-        public string Severity { get; set; } = "Low";
+        public string Title { get; set; }
 
-        [Required]
-        public string Status { get; set; } = "Open";
+        public string Description { get; set; }
 
-        public string? Comment { get; set; }
+        public string Severity { get; set; }
+
+        public string Status { get; set; }
+
+        public string Comment { get; set; }
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 

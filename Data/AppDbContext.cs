@@ -13,45 +13,45 @@ namespace BugTrackingSystem.Data
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    base.OnModelCreating(modelBuilder);
+
+    modelBuilder.Entity<User>().HasData(
+        new User
         {
-            base.OnModelCreating(modelBuilder);
-
-            // Seed initial users (password: "admin123" and "member123" - hashed)
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    UserId = 1,
-                    Username = "admin",
-                    Password = BCrypt.Net.BCrypt.HashPassword("admin123"),
-                    FullName = "Admin User",
-                    Email = "admin@bugtracker.com",
-                    Role = "Admin",
-                    CreatedDate = DateTime.Now
-                },
-                new User
-                {
-                    UserId = 2,
-                    Username = "member",
-                    Password = BCrypt.Net.BCrypt.HashPassword("member123"),
-                    FullName = "Member User",
-                    Email = "member@bugtracker.com",
-                    Role = "Member",
-                    CreatedDate = DateTime.Now
-                }
-            );
-
-            // Seed initial bug data
-            modelBuilder.Entity<Bug>().HasData(
-                new Bug
-                {
-                    BugId = 1,
-                    Title = "Login Issue",
-                    Description = "Users cannot login with correct credentials",
-                    Severity = "High",
-                    Status = "Open",
-                    CreatedDate = DateTime.Now
-                }
-            );
+            UserId = 1,
+            Username = "admin",
+            Password = "$2a$11$7b6J8v5u6zq8r9p0J1KfEODd8x7y6R1JYhP1k9ZqQhT5C8eW1R3uK", // pre-generated hash
+            FullName = "Admin User",
+            Email = "admin@bugtracker.com",
+            Role = "Admin",
+            CreatedDate = new DateTime(2024,1,1)
+        },
+        new User
+        {
+            UserId = 2,
+            Username = "member",
+            Password = "$2a$11$7b6J8v5u6zq8r9p0J1KfEODd8x7y6R1JYhP1k9ZqQhT5C8eW1R3uK",
+            FullName = "Member User",
+            Email = "member@bugtracker.com",
+            Role = "Member",
+            CreatedDate = new DateTime(2024,1,1)
         }
+    );
+
+    modelBuilder.Entity<Bug>().HasData(
+        new Bug
+        {
+            BugId = 1,
+            Title = "Login Issue",
+            Description = "Users cannot login with correct credentials",
+            Severity = "High",
+            Status = "Open",
+            Comment = "Initial bug record",
+            CreatedDate = new DateTime(2024,1,1),
+            UpdatedDate = new DateTime(2024,1,1)
+        }
+    );
+}
     }
 }
